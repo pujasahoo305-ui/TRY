@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Products — Meesho</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* ===== COLOR SWATCH SYSTEM ===== */
+    .card-colors {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 6px 0 4px;
+      flex-wrap: wrap;
+    }
+    .color-swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .color-swatch:hover {
+      transform: scale(1.2);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .color-swatch.active {
+      border-color: #f43397;
+      transform: scale(1.15);
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px #f43397;
+    }
+    .color-swatch-more {
+      font-size: 10px;
+      font-weight: 700;
+      color: #888;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .color-swatch-label {
+      font-size: 10px;
+      color: #888;
+      margin-right: 2px;
+    }
+
+    /* Selected color indicator tag */
+    .selected-color-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      color: #f43397;
+      background: #fff0f8;
+      border: 1px solid #fce4f1;
+      border-radius: 4px;
+      padding: 1px 6px;
+      margin-left: 2px;
+      transition: all 0.2s;
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <a href="index.html" class="logo"><img src="https://cdn.freelogovectors.net/wp-content/uploads/2023/11/meesho-logo-freelogovectors.net_.png" alt="Meesho" class="logo-img"/></a>
+    <div class="search-wrapper">
+      <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Try Saree, Kurti or Search by Product Code"/>
+        <button class="search-icon-btn"><i class="fas fa-camera"></i></button>
+        <button class="search-icon-btn"><i class="fas fa-microphone"></i></button>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="#" class="header-btn"><i class="fas fa-store"></i><span>Become a Supplier</span></a>
+      <a href="#" class="header-btn"><i class="fas fa-chart-line"></i><span>Investor Relations</span></a>
+      <a href="#" class="header-btn"><i class="fas fa-user"></i><span>Profile</span></a>
+      <a href="#" class="header-btn"><i class="fas fa-shopping-bag"></i><span>Cart</span></a>
+    </div>
+  </div>
+  <nav class="category-nav">
+    <div class="nav-categories">
+      <a href="index.html" class="nav-item"><span>All Categories</span></a>
+      <a href="products.html" class="nav-item active"><span>Women Ethnic</span></a>
+      <a href="products.html" class="nav-item"><span>Women Western</span></a>
+      <a href="products.html" class="nav-item"><span>Men</span></a>
+      <a href="products.html" class="nav-item"><span>Kids</span></a>
+      <a href="products.html" class="nav-item"><span>Home & Kitchen</span></a>
+      <a href="products.html" class="nav-item"><span>Beauty & Health</span></a>
+      <a href="products.html" class="nav-item"><span>Jewellery</span></a>
+      <a href="products.html" class="nav-item"><span>Bags & Footwear</span></a>
+      <a href="products.html" class="nav-item"><span>Electronics</span></a>
+    </div>
+  </nav>
+</header>
+
+<div class="page-shell">
+  <div class="page-title-bar">
+    <p class="crumbs"><a href="index.html">Home</a> &nbsp;/&nbsp; <a href="#">Women Ethnic</a> &nbsp;/&nbsp; All Products</p>
+    <h1>Women Ethnic Wear — 12 Products</h1>
+  </div>
+
+  <div class="main-content" style="padding:0;">
+    <aside class="sidebar">
+      <div class="sidebar-head"><span class="sidebar-title">Filters</span></div>
+      <div class="filter-section">
+        <div class="filter-header"><span class="filter-title">Categories</span><i class="fas fa-chevron-down"></i></div>
+        <div class="filter-body">
+          <label class="rating-option"><input type="checkbox" checked/> Sarees</label>
+          <label class="rating-option"><input type="checkbox" checked/> Kurtis</label>
+          <label class="rating-option"><input type="checkbox"/> Lehenga</label>
+          <label class="rating-option"><input type="checkbox"/> Salwar Suits</label>
+          <label class="rating-option"><input type="checkbox"/> Dupattas</label>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-header"><span class="filter-title">Price Range</span><i class="fas fa-chevron-down"></i></div>
+        <div class="filter-body">
+          <div class="price-display"><span>₹199</span><span>₹3,000</span></div>
+          <div class="price-presets">
+            <button class="preset-btn">Under ₹500</button>
+            <button class="preset-btn">₹500–1000</button>
+            <button class="preset-btn">₹1000+</button>
+          </div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-header"><span class="filter-title">Discount</span><i class="fas fa-chevron-down"></i></div>
+        <div class="filter-body">
+          <label class="discount-option"><input type="checkbox" checked/> 50% or more</label>
+          <label class="discount-option"><input type="checkbox"/> 60% or more</label>
+          <label class="discount-option"><input type="checkbox"/> 70% or more</label>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-header"><span class="filter-title">Customer Rating</span><i class="fas fa-chevron-down"></i></div>
+        <div class="filter-body">
+          <label class="rating-option"><input type="checkbox"/> ⭐ 4.5 & above</label>
+          <label class="rating-option"><input type="checkbox" checked/> ⭐ 4.0 & above</label>
+          <label class="rating-option"><input type="checkbox"/> ⭐ 3.5 & above</label>
+        </div>
+      </div>
+    </aside>
+
+    <div class="products-section">
+      <div class="products-header">
+        <span class="products-title">Showing 12 of 240 products</span>
+        <div class="sort-wrap">
+          <span>Sort by:</span>
+          <select class="sort-select">
+            <option>Popularity</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+            <option>Newest First</option>
+            <option>Best Rated</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="product-grid">
+
+        <!-- Card 1 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://i.pinimg.com/736x/e0/07/a6/e007a6dcb55f105706b27a05001d23b0.jpg" alt="Saree" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Libas</div>
+            <div class="card-name">Floral Printed Anarkali Kurti</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#c2185b;" data-name="Rose Pink" title="Rose Pink" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#ff8f00;" data-name="Amber" title="Amber" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#1565c0;" data-name="Royal Blue" title="Royal Blue" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#2e7d32;" data-name="Forest Green" title="Forest Green" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Rose Pink</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹349</span><span class="card-mrp">₹899</span><span class="card-off">61% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.3 <span class="count">(12.4k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist wishlisted"><i class="fas fa-heart"></i></span>
+            <img src="https://images.biba.in/dw/image/v2/BKQK_PRD/on/demandware.static/-/Sites-biba-product-catalog/default/dwabf4a7d7/images/aw25/vinwin30555aw25blu_1.jpg?sw=502&sh=753&q=100&strip=false" alt="Kurta" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">BIBA</div>
+            <div class="card-name">Ethnic Wear Straight Kurta</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#1565c0;" data-name="Sky Blue" title="Sky Blue" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#880e4f;" data-name="Deep Magenta" title="Deep Magenta" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#e65100;" data-name="Burnt Orange" title="Burnt Orange" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Sky Blue</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹499</span><span class="card-mrp">₹1,199</span><span class="card-off">58% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.5 <span class="count">(8.2k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://i.pinimg.com/originals/6e/eb/9d/6eeb9ddb29e13024b41291265a9b75d4.png" alt="Lehenga" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Fabindia</div>
+            <div class="card-name">Handloom Cotton Lehenga Choli</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#6a1b9a;" data-name="Purple" title="Purple" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#b71c1c;" data-name="Crimson" title="Crimson" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#f9a825;" data-name="Golden" title="Golden" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#004d40;" data-name="Teal" title="Teal" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#37474f;" data-name="Slate" title="Slate" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Purple</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹1,299</span><span class="card-mrp">₹3,499</span><span class="card-off">63% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.5 <span class="count">(3.4k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 4 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://tse1.mm.bing.net/th/id/OIP.3F3BxMYG8E2eKYYPi51J-AHaLH?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Saree" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Anouk</div>
+            <div class="card-name">Banarasi Silk Saree</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#b71c1c;" data-name="Red" title="Red" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#880e4f;" data-name="Maroon" title="Maroon" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#f9a825;" data-name="Gold" title="Gold" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#1b5e20;" data-name="Bottle Green" title="Bottle Green" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Red</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹1,499</span><span class="card-mrp">₹4,999</span><span class="card-off">70% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.6 <span class="count">(4.1k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 5 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://www.jiomart.com/images/product/500x630/420460812_maroon/printed-a-line-kurta-model-420460812_maroon-0-202309052123.jpg" alt="Kurta" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">W</div>
+            <div class="card-name">Printed A-line Kurta</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#880e4f;" data-name="Maroon" title="Maroon" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#e65100;" data-name="Rust" title="Rust" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#263238;" data-name="Charcoal" title="Charcoal" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Maroon</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹599</span><span class="card-mrp">₹1,499</span><span class="card-off">60% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.2 <span class="count">(6.8k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 6 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist wishlisted"><i class="fas fa-heart"></i></span>
+            <img src="https://assets.panashindia.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/6/5/6597sl03-1306-c.jpg" alt="Salwar" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Aurelia</div>
+            <div class="card-name">Embroidered Salwar Suit Set</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#e0e0e0;border:1px solid #ccc;" data-name="Off White" title="Off White" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#ffca28;" data-name="Mustard" title="Mustard" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#c62828;" data-name="Red" title="Red" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#00695c;" data-name="Teal Green" title="Teal Green" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Off White</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹899</span><span class="card-mrp">₹2,299</span><span class="card-off">61% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.4 <span class="count">(3.9k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 7 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://www.kollybollyethnics.com/image/catalog/data/06Sep2022/Yellow-silk-georgette-designer-saree-42007.jpg" alt="Saree" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Soch</div>
+            <div class="card-name">Designer Georgette Saree</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#f9a825;" data-name="Yellow" title="Yellow" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#ec407a;" data-name="Pink" title="Pink" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#7b1fa2;" data-name="Violet" title="Violet" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#0288d1;" data-name="Blue" title="Blue" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Yellow</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹1,099</span><span class="card-mrp">₹2,999</span><span class="card-off">63% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.3 <span class="count">(2.7k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 8 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://www.biba.in/dw/image/v2/BKQK_PRD/on/demandware.static/-/Sites-biba-product-catalog/default/dw418d7778/images/aw23/skdknri8927aw23teal_1.jpg?sw=502&sh=753" alt="Kurti" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Vishudh</div>
+            <div class="card-name">Cotton Anarkali Kurti Set</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#00695c;" data-name="Teal" title="Teal" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#d84315;" data-name="Terracotta" title="Terracotta" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#283593;" data-name="Indigo" title="Indigo" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Teal</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹649</span><span class="card-mrp">₹1,599</span><span class="card-off">59% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.1 <span class="count">(4.5k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 9 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://assets2.andaazfashion.com/media/catalog/product/cache/1/image/a12781a7f2ccb3d663f7fd01e1bd2e4e/d/e/design-no-dmv15290-rama-green-color-patiala-suit-front_1.jpg" alt="Patiala" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Sangria</div>
+            <div class="card-name">Patiala Suit With Dupatta</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#2e7d32;" data-name="Rama Green" title="Rama Green" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#ad1457;" data-name="Pink" title="Pink" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#1565c0;" data-name="Blue" title="Blue" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#e65100;" data-name="Orange" title="Orange" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Rama Green</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹799</span><span class="card-mrp">₹1,999</span><span class="card-off">60% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.2 <span class="count">(3.2k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 10 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://tse4.mm.bing.net/th/id/OIP.Z9iYd-it65yMf9QFlQ_CbAHaJ4?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Kurta" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Janasya</div>
+            <div class="card-name">Printed Straight Kurta</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#ff8f00;" data-name="Amber" title="Amber" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#6a1b9a;" data-name="Purple" title="Purple" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#37474f;" data-name="Grey" title="Grey" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#1b5e20;" data-name="Green" title="Green" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Amber</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹399</span><span class="card-mrp">₹999</span><span class="card-off">60% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.0 <span class="count">(7.1k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 11 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist wishlisted"><i class="fas fa-heart"></i></span>
+            <img src="https://www.nameerabyfarooq.com/cdn/shop/files/GoldenLehengaCholiwithDupattaforWedding_1800x1800.jpg?v=1708957037" alt="Lehenga" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Indo Era</div>
+            <div class="card-name">Bridal Lehenga Choli</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#f9a825;" data-name="Gold" title="Gold" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#b71c1c;" data-name="Bridal Red" title="Bridal Red" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#880e4f;" data-name="Deep Pink" title="Deep Pink" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#1a237e;" data-name="Royal Blue" title="Royal Blue" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Gold</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹2,999</span><span class="card-mrp">₹7,999</span><span class="card-off">62% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.7 <span class="count">(1.8k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+        <!-- Card 12 -->
+        <a href="#" class="product-card">
+          <div class="card-img-wrap">
+            <span class="card-wishlist"><i class="far fa-heart"></i></span>
+            <img src="https://www.libas.in/cdn/shop/files/99047O_2Main_a02fca91-59a8-441f-b971-11d24a123eb4.jpg?v=1755945152&width=540" alt="Kurti" class="card-main-img"/>
+          </div>
+          <div class="card-body">
+            <div class="card-brand">Shree</div>
+            <div class="card-name">Silk Blend Saree With Blouse</div>
+            <div class="card-colors" onclick="event.preventDefault()">
+              <span class="color-swatch-label">Color:</span>
+              <span class="color-swatch active" style="background:#795548;" data-name="Brown" title="Brown" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#e91e63;" data-name="Hot Pink" title="Hot Pink" onclick="pickColor(this)"></span>
+              <span class="color-swatch" style="background:#00897b;" data-name="Jade" title="Jade" onclick="pickColor(this)"></span>
+              <span class="selected-color-tag">Brown</span>
+            </div>
+            <div class="card-pricing"><span class="card-price">₹799</span><span class="card-mrp">₹2,499</span><span class="card-off">68% off</span></div>
+            <div class="card-rating"><span class="star">★</span> 4.4 <span class="count">(5.6k)</span></div>
+            <div class="free-delivery">Free Delivery</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <img src="https://cdn.freelogovectors.net/wp-content/uploads/2023/11/meesho-logo-freelogovectors.net_.png" alt="Meesho" class="footer-brand-logo"/>
+      <p>India's #1 online shopping destination. Lowest prices on fashion, home, beauty and more.</p>
+      <div class="footer-socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <a href="products.html">Women Ethnic</a>
+      <a href="products.html">Western Wear</a>
+      <a href="products.html">Men</a>
+      <a href="products.html">Electronics</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h5>Help</h5>
+      <a href="#">Track Order</a>
+      <a href="#">Returns</a>
+      <a href="#">FAQs</a>
+      <a href="contact.html" style="color:#f43397;font-weight:700;display:flex;align-items:center;gap:6px;"><i class="fas fa-headset"></i> Contact Support</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Meesho. All rights reserved.</span>
+    <span>Made with <i class="fas fa-heart" style="color:#f43397"></i> in India</span>
+  </div>
+</footer>
+
+<script>
+  function pickColor(swatch) {
+    // Find parent card-colors div
+    const colorGroup = swatch.closest('.card-colors');
+    // Deactivate all in this group
+    colorGroup.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    // Activate clicked
+    swatch.classList.add('active');
+    // Update label tag
+    const tag = colorGroup.querySelector('.selected-color-tag');
+    if (tag) tag.textContent = swatch.dataset.name;
+  }
+</script>
+
+</body>
+</html>

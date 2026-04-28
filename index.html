@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meesho — India's Favourite Online Shopping App</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Pacifico&family=Playfair+Display:ital,wght@1,700;1,900&family=Anton&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .suggestions-section { padding: 40px 24px; max-width: 1400px; margin: 0 auto; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .section-title { font-family: 'Mulish', sans-serif; font-size: 22px; font-weight: 800; color: #1a1a2e; display: flex; align-items: center; gap: 10px; }
+    .section-title span.pill { background: linear-gradient(135deg, #f43397, #ff6b35); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; }
+    .section-see-all { font-size: 13px; font-weight: 700; color: #f43397; text-decoration: none; display: flex; align-items: center; gap: 4px; transition: gap 0.2s; }
+    .section-see-all:hover { gap: 8px; }
+    .product-strip { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .product-strip::-webkit-scrollbar { height: 4px; }
+    .product-strip::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+    .product-strip::-webkit-scrollbar-thumb { background: #f43397; border-radius: 4px; }
+    .strip-card { flex: 0 0 180px; scroll-snap-align: start; background: #fff; border-radius: 14px; overflow: hidden; border: 1.5px solid #f0f0f0; text-decoration: none; color: inherit; transition: transform 0.22s, box-shadow 0.22s; position: relative; }
+    .strip-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(244,51,151,0.13); }
+    .strip-card-img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .strip-card-body { padding: 10px 12px 12px; }
+    .strip-card-brand { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .strip-card-name { font-size: 13px; font-weight: 600; color: #1a1a2e; margin: 3px 0; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .strip-card-price { font-size: 14px; font-weight: 800; color: #1a1a2e; }
+    .strip-card-mrp { font-size: 11px; color: #aaa; text-decoration: line-through; margin-left: 5px; }
+    .strip-card-off { font-size: 11px; font-weight: 700; color: #22c55e; margin-left: 4px; }
+    .strip-card-badge { position: absolute; top: 10px; left: 10px; background: #f43397; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+    .strip-card-badge.trending { background: #ff6b35; }
+    .strip-card-badge.new { background: #7c3aed; }
+    .deals-strip { background: linear-gradient(135deg, #fff0f8 0%, #fff5f0 100%); border-top: 1px solid #fce4f1; border-bottom: 1px solid #fce4f1; padding: 14px 24px; display: flex; align-items: center; gap: 14px; overflow-x: auto; }
+    .deal-chip { flex: 0 0 auto; display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid #f43397; border-radius: 40px; padding: 6px 14px; font-size: 13px; font-weight: 700; color: #f43397; white-space: nowrap; cursor: pointer; transition: all 0.2s; }
+    .deal-chip:hover { background: #f43397; color: #fff; }
+    .deals-label { font-size: 12px; font-weight: 800; color: #888; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; flex: 0 0 auto; }
+    .support-banner { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%); padding: 28px 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; position: relative; overflow: hidden; }
+    .support-banner::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(244,51,151,0.18) 0%, transparent 70%); pointer-events: none; }
+    .support-banner-left { display: flex; align-items: center; gap: 16px; }
+    .support-icon-wrap { width: 54px; height: 54px; background: linear-gradient(135deg, #f43397, #ff6b35); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .support-icon-wrap i { font-size: 24px; color: #fff; }
+    .support-text h4 { font-family: 'Mulish', sans-serif; font-size: 18px; font-weight: 800; color: #fff; margin: 0 0 4px; }
+    .support-text p { font-size: 13px; color: rgba(255,255,255,0.6); margin: 0; }
+    .support-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .support-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 40px; font-family: 'Mulish', sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; transition: all 0.22s; cursor: pointer; border: none; }
+    .support-btn.primary { background: linear-gradient(135deg, #f43397, #ff6b35); color: #fff; box-shadow: 0 4px 16px rgba(244,51,151,0.35); }
+    .support-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(244,51,151,0.45); }
+    .support-btn.secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1.5px solid rgba(255,255,255,0.25); }
+    .support-btn.secondary:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+    .trust-badges { display: flex; justify-content: center; gap: 32px; padding: 20px 24px; background: #fff; flex-wrap: wrap; border-top: 1px solid #f5f5f5; }
+    .trust-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #444; }
+    .trust-badge i { font-size: 18px; color: #f43397; }
+    .section-divider { height: 8px; background: #f7f7f7; }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-top">
+    <a href="index.html" class="logo"><img src="images/meesho-logo.png" alt="Meesho" class="logo-img"/></a>
+    <div class="search-wrapper">
+      <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Try Saree, Kurti or Search by Product Code"/>
+        <button class="search-icon-btn" title="Search by Image"><i class="fas fa-camera"></i></button>
+        <button class="search-icon-btn" title="Voice Search"><i class="fas fa-microphone"></i></button>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="#" class="header-btn"><i class="fas fa-store"></i><span>Become a Supplier</span></a>
+      <a href="#" class="header-btn"><i class="fas fa-chart-line"></i><span>Investor Relations</span></a>
+      <a href="#" class="header-btn"><i class="fas fa-user"></i><span>Profile</span></a>
+      <a href="#" class="header-btn"><i class="fas fa-shopping-bag"></i><span>Cart</span></a>
+    </div>
+  </div>
+  <nav class="category-nav">
+    <div class="nav-categories">
+      <a href="index.html" class="nav-item active"><span>All Categories</span></a>
+      <a href="products.html" class="nav-item"><span>Women Ethnic</span></a>
+      <a href="products.html" class="nav-item"><span>Women Western</span></a>
+      <a href="products.html" class="nav-item"><span>Men</span></a>
+      <a href="products.html" class="nav-item"><span>Kids</span></a>
+      <a href="products.html" class="nav-item"><span>Home & Kitchen</span></a>
+      <a href="products.html" class="nav-item"><span>Beauty & Health</span></a>
+      <a href="products.html" class="nav-item"><span>Jewellery</span></a>
+      <a href="products.html" class="nav-item"><span>Bags & Footwear</span></a>
+      <a href="products.html" class="nav-item"><span>Electronics</span></a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero-wrap">
+  <div class="hero-banner">
+    <div class="banner-slider">
+      <div class="banner-slide active" style="background: linear-gradient(135deg, #fce4f1 0%, #f5a3c7 100%);">
+        <div class="banner-content">
+          <p class="banner-tag">New Collection</p>
+          <h1 class="banner-title">Festive Season Sale</h1>
+          <p class="banner-sub">Up to 80% off on Ethnic Wear</p>
+          <a href="products.html" class="banner-cta">Shop Now</a>
+        </div>
+        <div class="banner-img-wrap">
+          <img src="https://www.merakivastram.com/cdn/shop/files/buy_festive_clothing_online_in_uae_for_diwali.jpg?v=1758573606&width=1920" alt="Festive Sale"/>
+        </div>
+      </div>
+    </div>
+    <div class="banner-dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+  </div>
+  <aside class="app-qr-card">
+    <div class="qr-left">
+      <p class="qr-tag">Meesho App</p>
+      <h3 class="qr-title">Shop on the go</h3>
+      <p class="qr-sub">Scan to download the app</p>
+      <div class="qr-stores">
+        <span class="store-pill"><i class="fab fa-google-play"></i> Google Play</span>
+        <span class="store-pill"><i class="fab fa-apple"></i> App Store</span>
+      </div>
+    </div>
+    <div class="qr-right">
+      <div class="qr-img-wrap"><img src="images/app-qr.png" alt="QR"/></div>
+      <p class="qr-caption">Scan with camera</p>
+    </div>
+  </aside>
+</section>
+
+<section class="circle-cats">
+  <div class="circle-cats-inner">
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://5.imimg.com/data5/YE/TF/BZ/SELLER-22535983/men-s-ethic-wear-1000x1000.jpeg" alt=""/></div><p>Ethnic Wear</p></a>
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=200&h=200&fit=crop" alt=""/></div><p>Western Dresses</p></a>
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://i.pinimg.com/originals/09/85/36/0985361d56d712a956759d02d2c6ff31.jpg" alt=""/></div><p>Menswear</p></a>
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop" alt=""/></div><p>Footwear</p></a>
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&h=200&fit=crop" alt=""/></div><p>Home Decor</p></a>
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=200&h=200&fit=crop" alt=""/></div><p>Beauty</p></a>
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=200&h=200&fit=crop" alt=""/></div><p>Jewellery</p></a>
+    <a href="products.html" class="circle-cat"><div class="circle-img"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200&h=200&fit=crop" alt=""/></div><p>Electronics</p></a>
+  </div>
+</section>
+
+<section class="brands-strip">
+  <div class="brands-track">
+    <div class="brand-pill"><span class="brand-text bt-mamaearth">mamaearth<i class="leaf">🌱</i></span></div>
+    <div class="brand-pill"><span class="brand-text bt-wildstone">WILD<br/><b>STONE</b></span></div>
+    <div class="brand-pill"><span class="brand-text bt-plum">pl<i>u</i>m</span></div>
+    <div class="brand-pill"><span class="brand-text">NIVEA</span></div>
+    <div class="brand-pill"><span class="brand-text" style="color:#e74c3c">LAKMÉ</span></div>
+    <div class="brand-pill"><span class="brand-text" style="color:#1a1a1a">PUMA</span></div>
+    <div class="brand-pill"><span class="brand-text" style="color:#005baa">NIKE</span></div>
+    <div class="brand-pill"><span class="brand-text bt-mamaearth">mamaearth<i class="leaf">🌱</i></span></div>
+    <div class="brand-pill"><span class="brand-text bt-wildstone">WILD<br/><b>STONE</b></span></div>
+    <div class="brand-pill"><span class="brand-text bt-plum">pl<i>u</i>m</span></div>
+    <div class="brand-pill"><span class="brand-text">NIVEA</span></div>
+    <div class="brand-pill"><span class="brand-text" style="color:#e74c3c">LAKMÉ</span></div>
+    <div class="brand-pill"><span class="brand-text" style="color:#1a1a1a">PUMA</span></div>
+    <div class="brand-pill"><span class="brand-text" style="color:#005baa">NIKE</span></div>
+  </div>
+</section>
+
+<!-- DEALS CHIPS -->
+<div class="deals-strip">
+  <span class="deals-label">Today's Picks</span>
+  <span class="deal-chip"><i class="fas fa-fire"></i> Under ₹199</span>
+  <span class="deal-chip"><i class="fas fa-bolt"></i> Flash Sale</span>
+  <span class="deal-chip"><i class="fas fa-star"></i> Top Rated</span>
+  <span class="deal-chip"><i class="fas fa-tag"></i> 70%+ Off</span>
+  <span class="deal-chip"><i class="fas fa-leaf"></i> New Arrivals</span>
+  <span class="deal-chip"><i class="fas fa-truck"></i> Free Delivery</span>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- TRENDING NOW -->
+<section class="suggestions-section">
+  <div class="section-header">
+    <div class="section-title">
+      <i class="fas fa-fire" style="color:#ff6b35;"></i> Trending Now
+      <span class="pill">HOT</span>
+    </div>
+    <a href="products.html" class="section-see-all">See All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="product-strip">
+    <a href="products.html" class="strip-card">
+      <span class="strip-card-badge trending">Trending</span>
+      <img class="strip-card-img" src="https://i.pinimg.com/736x/e0/07/a6/e007a6dcb55f105706b27a05001d23b0.jpg" alt="Anarkali Kurti"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Libas</div><div class="strip-card-name">Floral Anarkali Kurti</div><div><span class="strip-card-price">₹349</span><span class="strip-card-mrp">₹899</span><span class="strip-card-off">61% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <span class="strip-card-badge trending">Trending</span>
+      <img class="strip-card-img" src="https://images.biba.in/dw/image/v2/BKQK_PRD/on/demandware.static/-/Sites-biba-product-catalog/default/dwabf4a7d7/images/aw25/vinwin30555aw25blu_1.jpg?sw=502&sh=753&q=100&strip=false" alt="Kurta"/>
+      <div class="strip-card-body"><div class="strip-card-brand">BIBA</div><div class="strip-card-name">Ethnic Straight Kurta</div><div><span class="strip-card-price">₹499</span><span class="strip-card-mrp">₹1,199</span><span class="strip-card-off">58% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://tse1.mm.bing.net/th/id/OIP.3F3BxMYG8E2eKYYPi51J-AHaLH?rs=1&pid=ImgDetMain" alt="Saree"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Anouk</div><div class="strip-card-name">Banarasi Silk Saree</div><div><span class="strip-card-price">₹1,499</span><span class="strip-card-mrp">₹4,999</span><span class="strip-card-off">70% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://www.jiomart.com/images/product/500x630/420460812_maroon/printed-a-line-kurta-model-420460812_maroon-0-202309052123.jpg" alt="Kurta"/>
+      <div class="strip-card-body"><div class="strip-card-brand">W</div><div class="strip-card-name">Printed A-line Kurta</div><div><span class="strip-card-price">₹599</span><span class="strip-card-mrp">₹1,499</span><span class="strip-card-off">60% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://assets.panashindia.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/6/5/6597sl03-1306-c.jpg" alt="Salwar"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Aurelia</div><div class="strip-card-name">Embroidered Salwar Set</div><div><span class="strip-card-price">₹899</span><span class="strip-card-mrp">₹2,299</span><span class="strip-card-off">61% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://www.kollybollyethnics.com/image/catalog/data/06Sep2022/Yellow-silk-georgette-designer-saree-42007.jpg" alt="Saree"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Soch</div><div class="strip-card-name">Designer Georgette Saree</div><div><span class="strip-card-price">₹1,099</span><span class="strip-card-mrp">₹2,999</span><span class="strip-card-off">63% off</span></div></div>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- NEW ARRIVALS -->
+<section class="suggestions-section">
+  <div class="section-header">
+    <div class="section-title">
+      ✨ New Arrivals
+      <span class="pill" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">NEW</span>
+    </div>
+    <a href="products.html" class="section-see-all">See All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="product-strip">
+    <a href="products.html" class="strip-card">
+      <span class="strip-card-badge new">New</span>
+      <img class="strip-card-img" src="https://i.pinimg.com/originals/6e/eb/9d/6eeb9ddb29e13024b41291265a9b75d4.png" alt="Lehenga"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Fabindia</div><div class="strip-card-name">Handloom Lehenga Choli</div><div><span class="strip-card-price">₹1,299</span><span class="strip-card-mrp">₹3,499</span><span class="strip-card-off">63% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <span class="strip-card-badge new">New</span>
+      <img class="strip-card-img" src="https://www.nameerabyfarooq.com/cdn/shop/files/GoldenLehengaCholiwithDupattaforWedding_1800x1800.jpg?v=1708957037" alt="Bridal Lehenga"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Indo Era</div><div class="strip-card-name">Bridal Lehenga Choli</div><div><span class="strip-card-price">₹2,999</span><span class="strip-card-mrp">₹7,999</span><span class="strip-card-off">62% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <span class="strip-card-badge new">New</span>
+      <img class="strip-card-img" src="https://www.biba.in/dw/image/v2/BKQK_PRD/on/demandware.static/-/Sites-biba-product-catalog/default/dw418d7778/images/aw23/skdknri8927aw23teal_1.jpg?sw=502&sh=753" alt="Kurti Set"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Vishudh</div><div class="strip-card-name">Cotton Anarkali Set</div><div><span class="strip-card-price">₹649</span><span class="strip-card-mrp">₹1,599</span><span class="strip-card-off">59% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://assets2.andaazfashion.com/media/catalog/product/cache/1/image/a12781a7f2ccb3d663f7fd01e1bd2e4e/d/e/design-no-dmv15290-rama-green-color-patiala-suit-front_1.jpg" alt="Patiala"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Sangria</div><div class="strip-card-name">Patiala Suit With Dupatta</div><div><span class="strip-card-price">₹799</span><span class="strip-card-mrp">₹1,999</span><span class="strip-card-off">60% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://www.libas.in/cdn/shop/files/99047O_2Main_a02fca91-59a8-441f-b971-11d24a123eb4.jpg?v=1755945152&width=540" alt="Saree"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Shree</div><div class="strip-card-name">Silk Blend Saree</div><div><span class="strip-card-price">₹799</span><span class="strip-card-mrp">₹2,499</span><span class="strip-card-off">68% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://tse4.mm.bing.net/th/id/OIP.Z9iYd-it65yMf9QFlQ_CbAHaJ4?rs=1&pid=ImgDetMain" alt="Kurta"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Janasya</div><div class="strip-card-name">Printed Straight Kurta</div><div><span class="strip-card-price">₹399</span><span class="strip-card-mrp">₹999</span><span class="strip-card-off">60% off</span></div></div>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BEST SELLERS -->
+<section class="suggestions-section">
+  <div class="section-header">
+    <div class="section-title">
+      <i class="fas fa-crown" style="color:#f59e0b;"></i> Best Sellers
+      <span class="pill" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">TOP PICKS</span>
+    </div>
+    <a href="products.html" class="section-see-all">See All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="product-strip">
+    <a href="products.html" class="strip-card">
+      <span class="strip-card-badge" style="background:#f59e0b;">★ Best</span>
+      <img class="strip-card-img" src="https://tse1.mm.bing.net/th/id/OIP.3F3BxMYG8E2eKYYPi51J-AHaLH?rs=1&pid=ImgDetMain" alt="Saree"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Anouk</div><div class="strip-card-name">Banarasi Silk Saree</div><div><span class="strip-card-price">₹1,499</span><span class="strip-card-mrp">₹4,999</span><span class="strip-card-off">70% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <span class="strip-card-badge" style="background:#f59e0b;">★ Best</span>
+      <img class="strip-card-img" src="https://www.nameerabyfarooq.com/cdn/shop/files/GoldenLehengaCholiwithDupattaforWedding_1800x1800.jpg?v=1708957037" alt="Lehenga"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Indo Era</div><div class="strip-card-name">Bridal Lehenga Choli</div><div><span class="strip-card-price">₹2,999</span><span class="strip-card-mrp">₹7,999</span><span class="strip-card-off">62% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://assets.panashindia.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/6/5/6597sl03-1306-c.jpg" alt="Salwar"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Aurelia</div><div class="strip-card-name">Embroidered Salwar Set</div><div><span class="strip-card-price">₹899</span><span class="strip-card-mrp">₹2,299</span><span class="strip-card-off">61% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://i.pinimg.com/originals/6e/eb/9d/6eeb9ddb29e13024b41291265a9b75d4.png" alt="Lehenga"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Fabindia</div><div class="strip-card-name">Handloom Lehenga Choli</div><div><span class="strip-card-price">₹1,299</span><span class="strip-card-mrp">₹3,499</span><span class="strip-card-off">63% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://www.kollybollyethnics.com/image/catalog/data/06Sep2022/Yellow-silk-georgette-designer-saree-42007.jpg" alt="Saree"/>
+      <div class="strip-card-body"><div class="strip-card-brand">Soch</div><div class="strip-card-name">Designer Georgette Saree</div><div><span class="strip-card-price">₹1,099</span><span class="strip-card-mrp">₹2,999</span><span class="strip-card-off">63% off</span></div></div>
+    </a>
+    <a href="products.html" class="strip-card">
+      <img class="strip-card-img" src="https://images.biba.in/dw/image/v2/BKQK_PRD/on/demandware.static/-/Sites-biba-product-catalog/default/dwabf4a7d7/images/aw25/vinwin30555aw25blu_1.jpg?sw=502&sh=753&q=100&strip=false" alt="Kurta"/>
+      <div class="strip-card-body"><div class="strip-card-brand">BIBA</div><div class="strip-card-name">Ethnic Straight Kurta</div><div><span class="strip-card-price">₹499</span><span class="strip-card-mrp">₹1,199</span><span class="strip-card-off">58% off</span></div></div>
+    </a>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TRUST BADGES -->
+<div class="trust-badges">
+  <div class="trust-badge"><i class="fas fa-shield-alt"></i> 100% Secure Payments</div>
+  <div class="trust-badge"><i class="fas fa-undo"></i> Easy Returns</div>
+  <div class="trust-badge"><i class="fas fa-truck"></i> Free Delivery Available</div>
+  <div class="trust-badge"><i class="fas fa-headset"></i> 24/7 Customer Support</div>
+  <div class="trust-badge"><i class="fas fa-tag"></i> Lowest Prices Guaranteed</div>
+</div>
+
+<!-- CONTACT SUPPORT BANNER -->
+<div class="support-banner" id="support">
+  <div class="support-banner-left">
+    <div class="support-icon-wrap"><i class="fas fa-headset"></i></div>
+    <div class="support-text">
+      <h4>Need help? We're here for you 24/7</h4>
+      <p>Track orders, resolve issues, or chat with our support team — instantly.</p>
+    </div>
+  </div>
+  <div class="support-actions">
+    <a href="contact.html" class="support-btn primary"><i class="fas fa-comments"></i> Contact Support</a>
+    <a href="contact.html" class="support-btn secondary"><i class="fas fa-question-circle"></i> Help Centre</a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <img src="https://cdn.freelogovectors.net/wp-content/uploads/2023/11/meesho-logo-freelogovectors.net_.png" alt="Meesho" class="footer-brand-logo"/>
+      <p>India's #1 online shopping destination. Lowest prices on fashion, home, beauty and more.</p>
+      <div class="footer-socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Shop</h5>
+      <a href="products.html">Women Ethnic</a>
+      <a href="products.html">Western Wear</a>
+      <a href="products.html">Men</a>
+      <a href="products.html">Electronics</a>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+    <div class="footer-col">
+      <h5>Help</h5>
+      <a href="#">Track Order</a>
+      <a href="#">Returns</a>
+      <a href="#">FAQs</a>
+      <a href="contact.html" style="color:#f43397;font-weight:700;display:flex;align-items:center;gap:6px;"><i class="fas fa-headset"></i> Contact Support</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Meesho. All rights reserved.</span>
+    <span>Made with <i class="fas fa-heart" style="color:#f43397"></i> in India</span>
+  </div>
+</footer>
+
+</body>
+</html>
